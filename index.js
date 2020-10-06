@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 var mongoose = require('mongoose')
+var cors = require('cors')
 var apiRouter = require('./Routers/routes')
 var bodyParser = require('body-parser')
 require('dotenv').config()
@@ -11,6 +12,9 @@ app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({extended:false}))
 app.use(bodyParser.json())
+// cors 설정
+app.use(cors());
+
 app.use('/api', apiRouter)
 
 var mongo_url = process.env.MONGO_URL
@@ -18,6 +22,7 @@ mongoose.connect(mongo_url,
     {useNewUrlParser: true , 
     useUnifiedTopology: true 
     })
+
 // app.get('/',function(request,response){
 //     // console.log(request)
 //     response.send("hello world.!!!")
